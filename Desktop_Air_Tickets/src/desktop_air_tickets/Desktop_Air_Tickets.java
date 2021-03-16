@@ -17,5 +17,5 @@ public class Desktop_Air_Tickets {
     public static void main(String[] args) {
         // TODO code application logic here
     }
-    
+
 }

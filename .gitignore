@@ -19,8 +19,25 @@
 *.tar.gz
 *.rar
 
+# libs project .jar #
+!/libs/*.jar
+
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 /API-RESTful_Air_Tickets/nbproject/private/
 /API-RESTful_Air_Tickets/build/
+/API-RESTful_Air_Tickets/dist/
 /Desktop_Air_Tickets/nbproject/private/
+/Desktop_Air_Tickets/build/
+/Desktop_Air_Tickets/dist/
+
+
+
+/conexionBD_mysql/dist/
+/conexionBD_mysql/build/
+/simpleDBLib/build/
+/simpleDBLib/nbproject/private/
+/simpleDBLib/dist/
+/conexionDB_MySql/nbproject/private/
+/conexionDB_MySql/build/
+/conexionDB_MySql/dist/
