@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package api.airTicket.logic.Login;
+package api.airTicket.logic.User;
 
 /**
  *
@@ -14,21 +14,15 @@ public class User implements java.io.Serializable {
     private String user;
     private String password;
     private String role;
-    private Person personalInfo;
 
-    public User(String user, String password, String role, Person personalInfo) {
+    public User(String user, String password, String role) {
         this.user = user;
         this.password = password;
         this.role = role;
-        this.personalInfo = personalInfo;
-    }
-
-    public User(String user, String password, String role) {
-        this(user, password, role, new Person());
     }
 
     public User() {
-        this("N/A", "N/A", "N/A", new Person());
+        this("N/A", "N/A", "N/A");
     }
 
     public String getUser() {
@@ -55,23 +49,14 @@ public class User implements java.io.Serializable {
         this.role = role;
     }
 
-    public Person getPersonalInfo() {
-        return personalInfo;
-    }
-
-    public void setPersonalInfo(Person personalInfo) {
-        this.personalInfo = personalInfo;
-    }
-
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
 
         s.append(String.format("User: %s%n"
                 + "Password: %s%n"
-                + "Role: %s%n"
-                + "Personal Information:%n%s%n",
-                this.user, this.password, this.role, this.personalInfo));
+                + "Role: %s%n",
+                this.user, this.password, this.role));
 
         return s.toString();
     }

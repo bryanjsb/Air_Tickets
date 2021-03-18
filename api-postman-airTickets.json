@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "44721573-82ba-4c70-a352-d775e2b05c9c",
+		"name": "/api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "helloworld",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/API-RESTful_Air_Tickets/helloworld/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"API-RESTful_Air_Tickets",
+						"helloworld",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login/bryanjsb",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8084/API-RESTful_Air_Tickets/sign/bryanjsb",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"API-RESTful_Air_Tickets",
+						"sign",
+						"bryanjsb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\": \"Admin\",\n    \"password\": \"123456\",\n    \"role\": \"Admin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8084/API-RESTful_Air_Tickets/sign/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"API-RESTful_Air_Tickets",
+						"sign",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateUser",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\": \"12345611\",\n    \"role\": \"Admin\",\n    \"user\": \"Admin\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8084/API-RESTful_Air_Tickets/sign/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"API-RESTful_Air_Tickets",
+						"sign",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteUser",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\": \"Admin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8084/API-RESTful_Air_Tickets/sign/delete/Admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"API-RESTful_Air_Tickets",
+						"sign",
+						"delete",
+						"Admin"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

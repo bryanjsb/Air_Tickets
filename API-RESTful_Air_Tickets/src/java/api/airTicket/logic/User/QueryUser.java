@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package api.airTicket.logic.Login;
+package api.airTicket.logic.User;
 
 /**
  *
@@ -11,11 +11,13 @@ package api.airTicket.logic.Login;
  */
 public enum QueryUser {
     CREATE("INSERT INTO Login (User,Password,Role) VALUES (?,?,?); "),
-    READ("SELECT User,Password,Role FROM Login WHERE User=? "),
-    UPDATE("UPDATE usuario SET id_usuario=?, clave_acceso=?,clave_vencida=?,rol=? WHERE id_usuario=?; "),
-    DELETE("DELETE FROM usuario WHERE id_usuario=?; "),
-    LIST_USER("SELECT id_usuario, clave_acceso, clave_vencida,rol FROM usuario ORDER BY id_usuario; "),
-    VERIFY("SELECT id_usuario FROM usuario WHERE id_usuario=? AND clave_acceso=?; ");
+    READ("SELECT User,Password,Role FROM Login WHERE User=?; "),
+    UPDATE("UPDATE Login SET Password=?,Role=? WHERE User=?; "),
+    DELETE("DELETE FROM Login WHERE User=?; "),
+    LIST_USER("SELECT id_usuario, clave_acceso, clave_vencida,rol "
+            + "FROM usuario ORDER BY id_usuario; "),
+    VERIFY("SELECT id_usuario FROM usuario WHERE id_usuario=? "
+            + "AND clave_acceso=?; ");
 
     QueryUser(String query) {
         this.query = query;

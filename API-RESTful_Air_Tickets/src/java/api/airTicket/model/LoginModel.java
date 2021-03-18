@@ -9,8 +9,8 @@ package api.airTicket.model;
  *
  * @author bryan
  */
-import api.airTicket.logic.Login.User;
-import api.airTicket.logic.Login.DaoUser;
+import api.airTicket.logic.User.User;
+import api.airTicket.logic.User.DaoUser;
 
 public class LoginModel {
 
@@ -26,12 +26,20 @@ public class LoginModel {
         return daoUser.getUserById(id).get();
     }
 
+    public boolean updateUser(User user) {
+        return daoUser.updateUser(user);
+    }
+
+    public boolean deleteUser(String user) {
+        return daoUser.DeleteUser(user);
+    }
+
     public LoginModel() {
-        daoUser = DaoUser.obtenerInstancia();
+        daoUser = DaoUser.getInstance();
     }
 
     /*
-    public LoginModel obtenerInstancia() {
+    public LoginModel getInstance() {
         if (loginModel == null) {
             loginModel = new LoginModel();
         }

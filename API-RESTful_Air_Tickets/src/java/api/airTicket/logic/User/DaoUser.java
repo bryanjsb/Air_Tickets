@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package api.airTicket.logic.Login;
+package api.airTicket.logic.User;
 
 /**
  *
@@ -72,6 +72,49 @@ public class DaoUser implements java.io.Serializable {
         return r;
     }
 
+    public boolean updateUser(User user) {
+        boolean update = false;
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(QueryUser.UPDATE.getQuery())) {
+
+            stm.setString(1, user.getPassword());
+            stm.setString(2, user.getRole());
+            stm.setString(3, user.getUser());
+
+            if (stm.executeUpdate() != 1) {
+                throw new SQLException();
+            } else {
+                update = true;
+            }
+
+        } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException ex) {
+            Logger.getLogger(DaoUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return update;
+    }
+
+    public boolean DeleteUser(String user) {
+        boolean delete = false;
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(QueryUser.DELETE.getQuery())) {
+
+            System.out.println(user);
+            stm.setString(1, user);
+
+            if (stm.executeUpdate() != 1) {
+                throw new SQLException();
+            } else {
+                delete = true;
+            }
+
+        } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException ex) {
+            Logger.getLogger(DaoUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return delete;
+    }
+
     // <editor-fold defaultstate="collapsed" desc="CONNECTION. Click on the + sign on the left to edit the code.">
     private Connection obtenerConexion() throws
             ClassNotFoundException,
@@ -94,7 +137,7 @@ public class DaoUser implements java.io.Serializable {
         }
     }
 
-    public static DaoUser obtenerInstancia() {
+    public static DaoUser getInstance() {
         if (instancia == null) {
             instancia = new DaoUser();
         }
@@ -105,13 +148,4 @@ public class DaoUser implements java.io.Serializable {
     private ConnectionDB bd = null;
     // </editor-fold>
 
-    public static void main(String[] args) {
-        DaoUser se = new DaoUser();
-        //System.out.println("add User");
-        //se.addUser(new User("bryanjsb", "123456", "Admin"));
-
-        System.out.println("Get User");
-        Optional<User> ptr = se.getUserById("bryanjsb");
-        System.out.println(ptr.get());
-    }
 }
