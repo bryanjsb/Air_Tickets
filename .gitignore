@@ -41,3 +41,6 @@ hs_err_pid*
 /conexionDB_MySql/nbproject/private/
 /conexionDB_MySql/build/
 /conexionDB_MySql/dist/
+/ApiRestful_AirTickets/build/
+/ApiRestful_AirTickets/dist/
+/ApiRestful_AirTickets/nbproject/private/
