@@ -14,6 +14,14 @@ import api.airtickets.logic.InfoUser.InfoUser;
  */
 public class InfoUserModel {
 
+    public boolean updateInfoUser(InfoUser infoUser) {
+        return dao.updateInfoUser(infoUser);
+    }
+
+    public boolean addInfoUser(InfoUser infoUser) {
+        return dao.addInfoUser(infoUser);
+    }
+
     public InfoUser getInfoUserByID(String id) {
         return dao.getInfoUserById(id).get();
     }
@@ -30,7 +38,6 @@ public class InfoUserModel {
 //    }
 //
 //    private static InfoUserModel instance = null;
-    
     private final DaoInfoUser dao;
-    
+
 }

@@ -11,7 +11,6 @@ package api.airtickets.logic.User;
  */
 import cr.ac.database.connection.ConnectionDB;
 import java.io.IOException;
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
