@@ -44,3 +44,7 @@ hs_err_pid*
 /ApiRestful_AirTickets/build/
 /ApiRestful_AirTickets/dist/
 /ApiRestful_AirTickets/nbproject/private/
+/Desktop_User_AirTickets/nbproject/private/
+/Desktop_User_AirTickets/build/
+/Desktop_User_AirTickets/dist/
+/airline_tickets_Api-RESTFul/target/
