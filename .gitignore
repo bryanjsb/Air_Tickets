@@ -21,6 +21,7 @@
 
 # libs project .jar #
 !/libs/*.jar
+!/Libs/*.jar
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
@@ -48,3 +49,5 @@ hs_err_pid*
 /Desktop_User_AirTickets/build/
 /Desktop_User_AirTickets/dist/
 /airline_tickets_Api-RESTFul/target/
+/airline_tickets_Api-RESTFul/build/
+/airline_tickets_Api-RESTFul/dist/
