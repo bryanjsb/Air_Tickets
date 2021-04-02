@@ -5,7 +5,7 @@
  */
 package com.airline.model;
 
-import com.airline.dao.DaoInfoUser;
+import com.airline.logic.InfoUser.DaoInfoUser;
 import com.airline.logic.InfoUser.InfoUser;
 
 /**

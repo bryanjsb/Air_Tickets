@@ -10,7 +10,7 @@ package com.airline.model;
  * @author bryan
  */
 import com.airline.logic.User.User;
-import com.airline.dao.DaoUser;
+import com.airline.logic.User.DaoUser;
 
 public class LoginModel {
 

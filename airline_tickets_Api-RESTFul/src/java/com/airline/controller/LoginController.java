@@ -33,6 +33,13 @@ public class LoginController {
     }
 
     @POST
+    @Path("/in")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response auth(@PathParam("id") String id) {
+        return Response.accepted().build();
+    }
+
+    @POST
     @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response creatUser(User user) {

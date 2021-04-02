@@ -12,6 +12,7 @@ package com.airline.controller;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -24,8 +25,7 @@ public class HomeController extends Application {
     public Response aboutAirTicketProject() {
         return Response.ok("Api restful "
                 + "para la gestion de boletos de avión "
-                + "Integrantes: "
-                + "Bryan Sánchez Brenes. "
-                + "Alex Lopez Lopez.", MediaType.APPLICATION_JSON).build();
+                + "Integrante: "
+                + "Bryan Sánchez Brenes. ", MediaType.APPLICATION_JSON).build();
     }
 }
