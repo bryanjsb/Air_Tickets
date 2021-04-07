@@ -17,12 +17,15 @@ public enum QueryUser {
     CREATE("INSERT INTO User (Id,User,Password,Role) VALUES (?,?,?,?); "),
     READ("SELECT Id,User,Password,Role FROM User WHERE Id=?; "),
     UPDATE("UPDATE User SET User=?,Password=?,Role=? WHERE Id=?; "),
-    DELETE("DELETE FROM User WHERE Id=?; ");
-
+    DELETE("DELETE FROM User WHERE Id=?; "),
+    VERIFY_ID("SELECT id FROM User WHERE id=?;"),
+    VERIFY_USER("SELECT User FROM User WHERE User=?;"),
+    VERIFY_AUTH("SELECT ID FROM user WHERE User=? AND Password=?;");
 //    LIST_USER("SELECT id_usuario, clave_acceso, clave_vencida,rol "
 //            + "FROM usuario ORDER BY id_usuario; "),
 //    VERIFY("SELECT id_usuario FROM usuario WHERE id_usuario=? "
 //            + "AND clave_acceso=?; ");
+
     QueryUser(String query) {
         this.query = query;
     }

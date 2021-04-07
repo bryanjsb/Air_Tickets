@@ -9,8 +9,6 @@ package com.airline.logic.User;
  *
  * @author bryan
  */
-import com.airline.logic.User.QueryUser;
-import com.airline.logic.User.User;
 import cr.ac.database.connection.ConnectionDB;
 import java.io.IOException;
 import java.sql.Connection;
@@ -93,6 +91,8 @@ public class DaoUser implements java.io.Serializable {
 
         } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException ex) {
             Logger.getLogger(DaoUser.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            bd.closeConnection();
         }
 
         return update;
@@ -114,9 +114,36 @@ public class DaoUser implements java.io.Serializable {
 
         } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException ex) {
             Logger.getLogger(DaoUser.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            bd.closeConnection();
         }
 
         return delete;
+    }
+
+    public boolean verifyAuth(String user, String pass) {
+        boolean verify = false;
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm
+                = cnx.prepareStatement(QueryUser.VERIFY_AUTH.getQuery())) {
+
+            stm.clearParameters();
+            stm.setString(1, user);
+            stm.setString(2, pass);
+
+            System.out.println(user);
+            System.out.println(pass);
+            ResultSet rs = stm.executeQuery();
+
+            verify = rs.next();
+
+        } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException ex) {
+            Logger.getLogger(DaoUser.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            bd.closeConnection();
+        }
+
+        return verify;
     }
 
     // <editor-fold defaultstate="collapsed" desc="CONNECTION. Click on the + sign on the left to edit the code.">

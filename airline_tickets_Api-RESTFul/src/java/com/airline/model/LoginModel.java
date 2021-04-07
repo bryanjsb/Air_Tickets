@@ -14,6 +14,10 @@ import com.airline.logic.User.DaoUser;
 
 public class LoginModel {
 
+    public boolean verifyAuth(String user, String pass) {
+        return daoUser.verifyAuth(user, pass);
+    }
+
     public void addUser(User user) {
         daoUser.addUser(user);
     }

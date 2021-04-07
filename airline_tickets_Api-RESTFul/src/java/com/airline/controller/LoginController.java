@@ -13,6 +13,7 @@ import com.airline.logic.User.User;
 import com.airline.model.LoginModel;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -35,8 +36,13 @@ public class LoginController {
     @POST
     @Path("/in")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response auth(@PathParam("id") String id) {
-        return Response.accepted().build();
+    public Response auth(User user) {
+
+        System.out.println();
+        return model.verifyAuth(user.getUser(), user.getPassword()) ?Response.status(Response.Status.ACCEPTED)
+                        .entity("Usuario Autenticado").build()
+                : Response.status(Response.Status.NOT_ACCEPTABLE)
+                        .entity("Usuario Autenticado").build();
     }
 
     @POST
