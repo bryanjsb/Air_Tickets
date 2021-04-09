@@ -39,8 +39,8 @@ public class LoginController {
     public Response auth(User user) {
 
         System.out.println();
-        return model.verifyAuth(user.getUser(), user.getPassword()) ?Response.status(Response.Status.ACCEPTED)
-                        .entity("Usuario Autenticado").build()
+        return model.verifyAuth(user.getUser(), user.getPassword()) ? Response.status(Response.Status.ACCEPTED)
+                .entity("Usuario Autenticado").build()
                 : Response.status(Response.Status.NOT_ACCEPTABLE)
                         .entity("Usuario Autenticado").build();
     }
