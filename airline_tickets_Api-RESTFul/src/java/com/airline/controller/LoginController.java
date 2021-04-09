@@ -30,6 +30,7 @@ public class LoginController {
     @Produces({MediaType.APPLICATION_JSON})
     @Path("{id}")
     public User getUserById(@PathParam("id") String id) {
+        System.out.println( model.getUserById(id));
         return model.getUserById(id);
     }
 
