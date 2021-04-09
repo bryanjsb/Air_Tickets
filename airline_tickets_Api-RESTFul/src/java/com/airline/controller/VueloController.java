@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -30,8 +31,13 @@ public class VueloController {
         ArrayList lista = (ArrayList) model.listaVuelos();
         System.out.println(lista);
         String json = gson.toJson(lista);
-        return Response.ok(json).build();
-
+        return Response.status(200)
+                .entity(json)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Headers","*")
+                .header("access-control-allow-methods","*")
+                .build();
     }
 
     final Gson gson = new Gson();
