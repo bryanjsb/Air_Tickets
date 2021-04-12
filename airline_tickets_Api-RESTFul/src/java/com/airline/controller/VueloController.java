@@ -31,13 +31,7 @@ public class VueloController {
         ArrayList lista = (ArrayList) model.listaVuelos();
         System.out.println(lista);
         String json = gson.toJson(lista);
-        return Response.status(200)
-                .entity(json)
-                .header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Credentials", "true")
-                .header("Access-Control-Allow-Headers","*")
-                .header("access-control-allow-methods","*")
-                .build();
+        return Response.status(200).entity(json).build();
     }
 
     final Gson gson = new Gson();

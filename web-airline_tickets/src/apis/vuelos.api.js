@@ -1,6 +1,6 @@
-var lista = [];
 const listar = document.getElementById("#listarVuelos");
 function getApiListaVuelos() {
+  var lista = [];
   let URL =
     "http://localhost:8084/airline_tickets_Api-RESTFul/vuelo/listaVuelos";
   fetch(URL, {
@@ -8,10 +8,12 @@ function getApiListaVuelos() {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data.length);
-
-      for (var i; i < data.length; i++) console.log(data);
+      lista = data;
+      data.forEach((element) => {
+        lista.push(element);
+      });
+      return lista;
     });
 }
 
-getApiListaVuelos();
+console.log(getApiListaVuelos());
