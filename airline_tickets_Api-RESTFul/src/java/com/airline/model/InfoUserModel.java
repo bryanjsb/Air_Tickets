@@ -26,6 +26,10 @@ public class InfoUserModel {
         return dao.getInfoUserById(id).get();
     }
 
+    public boolean verifyID(String id) {
+        return dao.verifyID(id);
+    }
+
     public InfoUserModel() {
         dao = DaoInfoUser.getInstance();
     }

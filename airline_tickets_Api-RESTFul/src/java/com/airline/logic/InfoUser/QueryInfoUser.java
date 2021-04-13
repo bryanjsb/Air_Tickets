@@ -13,12 +13,13 @@ public enum QueryInfoUser {
 
     //Procedures
     PROCEDURE_GET_INFOUSER_ID("{call getInfoUser(?)}"),
-    CREATE("INSERT INTO InfoUser (ID,Name,LastName,email,DateBirthday,"
+    CREATE("INSERT INTO InfoUser (User_ID,Name,LastName,email,DateBirthday,"
             + "Address,PhoneWork,CellPhone) VALUES (?,?,?,?,?,?,?,?); "),
-    READ("SELECT ID,Name,LastName,email,DateBirthday,"
-            + "Address,PhoneWork,CellPhone FROM InfoUser WHERE ID=?; "),
+    GET_BY_ID("SELECT User_ID,Name,LastName,email,DateBirthday,"
+            + "Address,PhoneWork,CellPhone FROM infoUser WHERE User_ID=?; "),
     UPDATE("UPDATE InfoUser SET Name=?,LastName=?,email=?,DateBirthday=?,"
-            + "Address=?,PhoneWork=?,CellPhone=? WHERE ID=?; ");
+            + "Address=?,PhoneWork=?,CellPhone=? WHERE User_ID=?; "),
+    VERIFY_ID("SELECT User_ID FROM InfoUser WHERE User_ID=?;");
 
     QueryInfoUser(String procedure) {
         this.query = procedure;

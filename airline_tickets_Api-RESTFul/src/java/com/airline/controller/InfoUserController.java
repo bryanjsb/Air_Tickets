@@ -22,39 +22,51 @@ import javax.ws.rs.core.Response;
  * @author bryan
  */
 @Path("/infoUser")
+@Produces({MediaType.APPLICATION_JSON})
+@Consumes(MediaType.APPLICATION_JSON)
 public class InfoUserController {
 
     @GET
-    @Produces({MediaType.APPLICATION_JSON})
     @Path("{id}")
-    public InfoUser getInfoUserById(@PathParam("id") String id) {
-        return model.getInfoUserByID(id);
+    public Response getInfoUserById(@PathParam("id") String id) {
+        try {
+            InfoUser i = model.getInfoUserByID(id);
+
+            return Response.status(Response.Status.ACCEPTED).entity(i).build();
+        } catch (Exception e) {
+            String s = String.format("No existe el id %s", id);
+            return Response.status(Response.Status.NOT_FOUND).entity(s).build();
+        }
+
     }
 
     @POST
     @Path("/create")
-    @Consumes(MediaType.APPLICATION_JSON)
     public Response createInfoUser(InfoUser info) {
-        if (model.addInfoUser(info)) {
+        try {
+            model.addInfoUser(info);
             return Response.status(Response.Status.CREATED)
                     .entity("Informacion Usuario Almacenado").build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.CREATED)
+                    .entity("Informacion Usuario no se pudo Almacenar").build();
         }
-
-        return Response.status(Response.Status.CREATED)
-                .entity("Informacion Usuario no se pudo Almacenar").build();
     }
 
     @PUT
     @Path("/update")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response putInfoUser(InfoUser infoUser) {
-        if (model.updateInfoUser(infoUser)) {
-            return Response.status(Response.Status.OK).
-                    entity("Información del Usuario Actualizado").build();
+        try {
+            if (!model.updateInfoUser(infoUser)) {
+                throw new Exception("Información del Usuario NO se pudo  Actualizar");
+            }
+
+        } catch (Exception e) {
+            return Response.status(Response.Status.NOT_MODIFIED).
+                    entity(e).build();
         }
-        return Response.status(Response.Status.NOT_MODIFIED).
-                entity("Información del Usuario NO Se pudo  Actualizar").build();
+        return Response.status(Response.Status.ACCEPTED).
+                entity("Información del Usuario Actualizado").build();
     }
 
     private final InfoUserModel model = new InfoUserModel();

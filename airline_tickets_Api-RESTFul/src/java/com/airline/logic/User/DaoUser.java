@@ -48,9 +48,38 @@ public class DaoUser implements java.io.Serializable {
         Optional<User> r = Optional.empty();
         try (Connection cnx = obtenerConexion();
                 //   CallableStatement stm = cnx.prepareCall(QueryUser.PROCEDURE_GETUSER_ID.getQuery());) 
-                PreparedStatement stm = cnx.prepareStatement(QueryUser.READ.getQuery())) {
+                PreparedStatement stm = cnx.prepareStatement(QueryUser.GET_ID.getQuery())) {
             stm.clearParameters();
             stm.setString(1, id);
+            try (ResultSet rs = stm.executeQuery()) {
+                if (rs.next()) {
+                    r = Optional.of(new User(
+                            rs.getString("Id"),
+                            rs.getString("User"),
+                            rs.getString("Password"),
+                            rs.getString("Role")
+                    ));
+                }
+            }
+        } catch (IOException
+                | ClassNotFoundException
+                | IllegalAccessException
+                | InstantiationException
+                | SQLException ex) {
+            System.err.printf("Excepción: '%s'%n", ex.getMessage());
+        } finally {
+            bd.closeConnection();
+        }
+        return r;
+    }
+
+    public Optional<User> getUserByUser(String user) {
+        Optional<User> r = Optional.empty();
+        try (Connection cnx = obtenerConexion();
+                //   CallableStatement stm = cnx.prepareCall(QueryUser.PROCEDURE_GETUSER_ID.getQuery());) 
+                PreparedStatement stm = cnx.prepareStatement(QueryUser.GET_USER.getQuery())) {
+            stm.clearParameters();
+            stm.setString(1, user);
             try (ResultSet rs = stm.executeQuery()) {
                 if (rs.next()) {
                     r = Optional.of(new User(

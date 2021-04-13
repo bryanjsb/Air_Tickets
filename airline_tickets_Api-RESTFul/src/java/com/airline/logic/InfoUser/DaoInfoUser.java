@@ -11,6 +11,8 @@ package com.airline.logic.InfoUser;
  */
 import com.airline.logic.InfoUser.InfoUser;
 import com.airline.logic.InfoUser.QueryInfoUser;
+import com.airline.logic.User.DaoUser;
+import com.airline.logic.User.QueryUser;
 import cr.ac.database.connection.ConnectionDB;
 import java.io.IOException;
 import java.sql.Connection;
@@ -53,14 +55,15 @@ public class DaoInfoUser implements java.io.Serializable {
     public Optional<InfoUser> getInfoUserById(String id) {
         Optional<InfoUser> r = Optional.empty();
         try (Connection cnx = getConnection();
-                PreparedStatement stm = cnx.prepareStatement(QueryInfoUser.READ.getQuery())) //CallableStatement stm = cnx.prepareCall(QueryInfoUser.READ.getProcedure());) 
+                PreparedStatement stm
+                = cnx.prepareStatement(QueryInfoUser.GET_BY_ID.getQuery())) //CallableStatement stm = cnx.prepareCall(QueryInfoUser.READ.getProcedure());) 
         {
             stm.clearParameters();
             stm.setString(1, id);
             try (ResultSet rs = stm.executeQuery()) {
                 if (rs.next()) {
                     r = Optional.of(new InfoUser(
-                            rs.getString("ID"),
+                            rs.getString("User_ID"),
                             rs.getString("Name"),
                             rs.getString("LastName"),
                             rs.getString("email"),
@@ -71,6 +74,7 @@ public class DaoInfoUser implements java.io.Serializable {
                     ));
                 }
             }
+            System.out.println(r);
         } catch (IOException
                 | ClassNotFoundException
                 | IllegalAccessException
@@ -85,13 +89,16 @@ public class DaoInfoUser implements java.io.Serializable {
 
     public boolean updateInfoUser(InfoUser infoUser) {
         boolean update = false;
+        System.out.println(infoUser);
         try (Connection cnx = getConnection();
-                PreparedStatement stm = cnx.prepareStatement(QueryInfoUser.UPDATE.getQuery())) {
+                PreparedStatement stm
+                = cnx.prepareStatement(QueryInfoUser.UPDATE.getQuery())) {
 
             stm.setString(1, infoUser.getName());
             stm.setString(2, infoUser.getLastName());
             stm.setString(3, infoUser.getEmail());
-            stm.setTimestamp(4, DateConversion.util2Timestamp((java.util.Date) infoUser.getDateBirthDay()));
+            stm.setTimestamp(4, DateConversion
+                    .util2Timestamp((java.util.Date) infoUser.getDateBirthDay()));
             stm.setString(5, infoUser.getAddress());
             stm.setInt(6, infoUser.getPhoneWork());
             stm.setInt(7, infoUser.getCellphone());
@@ -103,11 +110,37 @@ public class DaoInfoUser implements java.io.Serializable {
                 update = true;
             }
 
-        } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException ex) {
+        } catch (IOException | ClassNotFoundException
+                | IllegalAccessException | InstantiationException
+                | SQLException ex) {
             Logger.getLogger(DaoInfoUser.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            bd.closeConnection();
         }
 
         return update;
+    }
+
+    public boolean verifyID(String id) {
+        boolean verify = false;
+        try (Connection cnx = getConnection();
+                PreparedStatement stm
+                = cnx.prepareStatement(QueryInfoUser.VERIFY_ID.getQuery())) {
+
+            stm.clearParameters();
+            stm.setString(1, id);
+
+            ResultSet rs = stm.executeQuery();
+
+            verify = rs.next();
+
+        } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException ex) {
+            Logger.getLogger(DaoInfoUser.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            bd.closeConnection();
+        }
+
+        return verify;
     }
 
     // <editor-fold defaultstate="collapsed" desc="CONNECTION. Click on the + sign on the left to edit the code.">

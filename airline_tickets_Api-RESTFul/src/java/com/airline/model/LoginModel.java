@@ -30,6 +30,10 @@ public class LoginModel {
         return daoUser.getUserById(id).get();
     }
 
+    public User getUserByUser(String user) {
+        return daoUser.getUserByUser(user).get();
+    }
+
     public boolean updateUser(User user) {
         return daoUser.updateUser(user);
     }
