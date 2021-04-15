@@ -86,7 +86,7 @@ public class DaoInfoUser implements java.io.Serializable {
         }
         return r;
     }
-
+    
     public boolean updateInfoUser(InfoUser infoUser) {
         boolean update = false;
         System.out.println(infoUser);

@@ -39,7 +39,7 @@ public class InfoUserController {
         }
 
     }
-
+   
     @POST
     @Path("/create")
     public Response createInfoUser(InfoUser info) {
@@ -60,13 +60,13 @@ public class InfoUserController {
             if (!model.updateInfoUser(infoUser)) {
                 throw new Exception("Información del Usuario NO se pudo  Actualizar");
             }
-
+            return Response.status(Response.Status.ACCEPTED).
+                    entity("Información del Usuario Actualizado").build();
         } catch (Exception e) {
             return Response.status(Response.Status.NOT_MODIFIED).
-                    entity(e).build();
+                    entity(e.getMessage()).build();
         }
-        return Response.status(Response.Status.ACCEPTED).
-                entity("Información del Usuario Actualizado").build();
+
     }
 
     private final InfoUserModel model = new InfoUserModel();

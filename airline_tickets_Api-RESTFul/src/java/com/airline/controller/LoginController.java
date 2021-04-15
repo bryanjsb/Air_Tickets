@@ -43,7 +43,8 @@ public class LoginController {
     public Response getUserByUser(@PathParam("user") String user) {
         try {
             User u = model.getUserByUser(user);
-            return Response.status(Response.Status.ACCEPTED).entity(u).build();
+            User ptr= new User(u.getId(),u.getUser(),"",u.getRole());
+            return Response.status(Response.Status.ACCEPTED).entity(ptr).build();
         } catch (Exception e) {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity("No existe el usuario").build();
         }
@@ -52,11 +53,19 @@ public class LoginController {
     @POST
     @Path("/in")
     public Response verifyAuth(User user) {
-        System.out.println();
-        return model.verifyAuth(user.getUser(), user.getPassword()) ? Response.status(Response.Status.ACCEPTED)
-                .entity("Usuario Autenticado").build()
-                : Response.status(Response.Status.NOT_ACCEPTABLE)
-                        .entity("Usuario Autenticado").build();
+        try {
+            boolean a = model.verifyAuth(user.getUser(), user.getPassword());
+            
+            if(!a){
+                throw  new Exception("Denegado");           
+            }
+            User u = model.getUserByUser(user.getUser());
+            User ptr= new User(u.getId(),u.getUser(),"",u.getRole());
+             return Response.ok(ptr).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity(e.getMessage()).build();
+        }
     }
 
     @POST
