@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.airline.logic.User;
+package com.airline.logic.payment;
 
 /**
  *
@@ -19,19 +19,20 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DaoUser implements java.io.Serializable {
+public class DaoPayment implements java.io.Serializable {
 
-    public boolean addUser(User user) {
+    public boolean addPayment(Payment payment) {
         boolean insertado = false;
         try (Connection cnx = obtenerConexion();
                 PreparedStatement stm
-                = cnx.prepareStatement(QueryUser.CREATE.getQuery())) {
-            System.out.println(user);
+                = cnx.prepareStatement(QueryPayment.CREATE.getQuery())) {
+
             stm.clearParameters();
-            stm.setString(1, user.getId());
-            stm.setString(2, user.getUser());
-            stm.setString(3, user.getPassword());
-            stm.setString(4, user.getRole());
+            stm.setInt(1, payment.getCreditCardNumber());
+            stm.setString(2, payment.getIdUser());
+            stm.setInt(3, payment.getExpirationDay());
+            stm.setInt(4, payment.getExpirationMonth());
+            stm.setInt(5, payment.getCvvCard());
 
             if (stm.executeUpdate() != 1) {
                 throw new SQLException();
@@ -39,26 +40,27 @@ public class DaoUser implements java.io.Serializable {
                 insertado = true;
             }
         } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException ex) {
-            Logger.getLogger(DaoUser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DaoPayment.class.getName()).log(Level.SEVERE, null, ex);
         }
         return insertado;
     }
 
     //callable statemet
-    public Optional<User> getUserById(String id) {
-        Optional<User> r = Optional.empty();
+    public Optional<Payment> getPaymentById(String id) {
+        Optional<Payment> r = Optional.empty();
         try (Connection cnx = obtenerConexion();
                 //   CallableStatement stm = cnx.prepareCall(QueryUser.PROCEDURE_GETUSER_ID.getQuery());) 
-                PreparedStatement stm = cnx.prepareStatement(QueryUser.GET_ID.getQuery())) {
+                PreparedStatement stm = cnx.prepareStatement(QueryPayment.GET_ID.getQuery())) {
             stm.clearParameters();
             stm.setString(1, id);
             try (ResultSet rs = stm.executeQuery()) {
                 if (rs.next()) {
-                    r = Optional.of(new User(
-                            rs.getString("Id"),
-                            rs.getString("User"),
-                            rs.getString("Password"),
-                            rs.getString("Role")
+                    r = Optional.of(new Payment(
+                            rs.getInt("creditCardNumber"),
+                            rs.getString("User_ID"),
+                            rs.getInt("expirationDay"),
+                            rs.getInt("expirationMonth"),
+                            rs.getInt("cvv")
                     ));
                 }
             }
@@ -74,20 +76,21 @@ public class DaoUser implements java.io.Serializable {
         return r;
     }
 
-    public Optional<User> getUserByUser(String user) {
-        Optional<User> r = Optional.empty();
+    public Optional<Payment> getUserByUser(String user) {
+        Optional<Payment> r = Optional.empty();
         try (Connection cnx = obtenerConexion();
                 //   CallableStatement stm = cnx.prepareCall(QueryUser.PROCEDURE_GETUSER_ID.getQuery());) 
-                PreparedStatement stm = cnx.prepareStatement(QueryUser.GET_USER.getQuery())) {
+                PreparedStatement stm = cnx.prepareStatement(QueryPayment.GET_USER.getQuery())) {
             stm.clearParameters();
             stm.setString(1, user);
             try (ResultSet rs = stm.executeQuery()) {
                 if (rs.next()) {
-                    r = Optional.of(new User(
-                            rs.getString("Id"),
-                            rs.getString("User"),
-                            rs.getString("Password"),
-                            rs.getString("Role")
+                    r = Optional.of(new Payment(
+                            rs.getInt("creditCardNumber"),
+                            rs.getString("User-ID"),
+                            rs.getInt("expirationDay"),
+                            rs.getInt("expirationMonth"),
+                            rs.getInt("cvv")
                     ));
                 }
             }
@@ -103,15 +106,16 @@ public class DaoUser implements java.io.Serializable {
         return r;
     }
 
-    public boolean updateUser(User user) {
+    public boolean updatePayment(Payment payment) {
         boolean update = false;
         try (Connection cnx = obtenerConexion();
-                PreparedStatement stm = cnx.prepareStatement(QueryUser.UPDATE.getQuery())) {
+                PreparedStatement stm = cnx.prepareStatement(QueryPayment.UPDATE.getQuery())) {
 
-            stm.setString(1, user.getUser());
-            stm.setString(2, user.getPassword());
-            stm.setString(3, user.getRole());
-            stm.setString(4, user.getId());
+            stm.setInt(1, payment.getCreditCardNumber());
+            stm.setString(2, payment.getIdUser());
+            stm.setInt(3, payment.getExpirationDay());
+            stm.setInt(4, payment.getExpirationMonth());
+            stm.setInt(5, payment.getCvvCard());
 
             if (stm.executeUpdate() != 1) {
                 throw new SQLException();
@@ -120,7 +124,7 @@ public class DaoUser implements java.io.Serializable {
             }
 
         } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException ex) {
-            Logger.getLogger(DaoUser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DaoPayment.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             bd.closeConnection();
         }
@@ -128,10 +132,10 @@ public class DaoUser implements java.io.Serializable {
         return update;
     }
 
-    public boolean DeleteUser(String id) {
+    public boolean DeletePayment(String id) {
         boolean delete = false;
         try (Connection cnx = obtenerConexion();
-                PreparedStatement stm = cnx.prepareStatement(QueryUser.DELETE.getQuery())) {
+                PreparedStatement stm = cnx.prepareStatement(QueryPayment.DELETE.getQuery())) {
 
             System.out.println(id);
             stm.setString(1, id);
@@ -143,37 +147,12 @@ public class DaoUser implements java.io.Serializable {
             }
 
         } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException ex) {
-            Logger.getLogger(DaoUser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DaoPayment.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             bd.closeConnection();
         }
 
         return delete;
-    }
-
-    public boolean verifyAuth(String user, String pass) {
-        boolean verify = false;
-        try (Connection cnx = obtenerConexion();
-                PreparedStatement stm
-                = cnx.prepareStatement(QueryUser.VERIFY_AUTH.getQuery())) {
-
-            stm.clearParameters();
-            stm.setString(1, user);
-            stm.setString(2, pass);
-
-            System.out.println(user);
-            System.out.println(pass);
-            ResultSet rs = stm.executeQuery();
-
-            verify = rs.next();
-
-        } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException ex) {
-            Logger.getLogger(DaoUser.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            bd.closeConnection();
-        }
-
-        return verify;
     }
 
     // <editor-fold defaultstate="collapsed" desc="CONNECTION. Click on the + sign on the left to edit the code.">
@@ -188,24 +167,24 @@ public class DaoUser implements java.io.Serializable {
         return cnx;
     }
 
-    private DaoUser() {
+    private DaoPayment() {
         try {
             this.bd = ConnectionDB.getInstance();
             bd.getConnection();
         } catch (SQLException ex) {
-            Logger.getLogger(DaoUser.class.getName()).
+            Logger.getLogger(DaoPayment.class.getName()).
                     log(Level.SEVERE, null, ex);
         }
     }
 
-    public static DaoUser getInstance() {
+    public static DaoPayment getInstance() {
         if (instancia == null) {
-            instancia = new DaoUser();
+            instancia = new DaoPayment();
         }
         return instancia;
     }
 
-    private static DaoUser instancia = null;
+    private static DaoPayment instancia = null;
     private ConnectionDB bd = null;
     // </editor-fold>
 

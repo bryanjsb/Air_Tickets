@@ -43,7 +43,7 @@ public class LoginController {
     public Response getUserByUser(@PathParam("user") String user) {
         try {
             User u = model.getUserByUser(user);
-            User ptr= new User(u.getId(),u.getUser(),"",u.getRole());
+            User ptr = new User(u.getId(), u.getUser(), "", u.getRole());
             return Response.status(Response.Status.ACCEPTED).entity(ptr).build();
         } catch (Exception e) {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity("No existe el usuario").build();
@@ -55,13 +55,13 @@ public class LoginController {
     public Response verifyAuth(User user) {
         try {
             boolean a = model.verifyAuth(user.getUser(), user.getPassword());
-            
-            if(!a){
-                throw  new Exception("Denegado");           
+
+            if (!a) {
+                throw new Exception("Denegado");
             }
             User u = model.getUserByUser(user.getUser());
-            User ptr= new User(u.getId(),u.getUser(),"",u.getRole());
-             return Response.ok(ptr).build();
+            User ptr = new User(u.getId(), u.getUser(), "", u.getRole());
+            return Response.ok(ptr).build();
         } catch (Exception e) {
             return Response.status(Response.Status.NOT_ACCEPTABLE)
                     .entity(e.getMessage()).build();
@@ -72,6 +72,7 @@ public class LoginController {
     @Path("/create")
     public Response creatUser(User user) {
         try {
+            System.out.println(user);
             model.addUser(user);
             return Response.status(Response.Status.OK).entity("Usuario Creado").build();
         } catch (Exception e) {

@@ -15,7 +15,7 @@ public class main {
         // TODO code application logic here
         System.out.println("Tests");
 
-        User log_in = new User("304760577", "bryanjsb", "123456777", "User");
+        User log_in = new User("304760544", "bryanjsb", "123456777", "User");
         System.out.println(log_in);
 
         LoginModel lm = new LoginModel();

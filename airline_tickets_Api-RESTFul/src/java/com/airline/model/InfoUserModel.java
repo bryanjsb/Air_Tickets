@@ -30,18 +30,18 @@ public class InfoUserModel {
         return dao.verifyID(id);
     }
 
-    public InfoUserModel() {
+    private InfoUserModel() {
         dao = DaoInfoUser.getInstance();
     }
 
-//    public static InfoUserModel getInstance() {
-//        if (instance == null) {
-//            instance = new InfoUserModel();
-//        }
-//        return instance;
-//    }
-//
-//    private static InfoUserModel instance = null;
+    public static InfoUserModel getInstance() {
+        if (instance == null) {
+            instance = new InfoUserModel();
+        }
+        return instance;
+    }
+
+private static InfoUserModel instance = null;
     private final DaoInfoUser dao;
 
 }

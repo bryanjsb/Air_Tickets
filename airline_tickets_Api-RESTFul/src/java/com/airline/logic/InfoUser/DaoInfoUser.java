@@ -30,7 +30,7 @@ public class DaoInfoUser implements java.io.Serializable {
         boolean insertado = false;
         try (Connection cnx = getConnection();
                 PreparedStatement stm = cnx.prepareStatement(QueryInfoUser.CREATE.getQuery())) {
-
+            System.out.println(info);
             stm.clearParameters();
             stm.setString(1, info.getId());
             stm.setString(2, info.getName());
@@ -86,7 +86,7 @@ public class DaoInfoUser implements java.io.Serializable {
         }
         return r;
     }
-    
+
     public boolean updateInfoUser(InfoUser infoUser) {
         boolean update = false;
         System.out.println(infoUser);

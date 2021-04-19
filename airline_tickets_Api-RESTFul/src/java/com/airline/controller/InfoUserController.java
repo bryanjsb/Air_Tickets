@@ -39,7 +39,7 @@ public class InfoUserController {
         }
 
     }
-   
+
     @POST
     @Path("/create")
     public Response createInfoUser(InfoUser info) {
@@ -69,5 +69,5 @@ public class InfoUserController {
 
     }
 
-    private final InfoUserModel model = new InfoUserModel();
+    private final InfoUserModel model = InfoUserModel.getInstance();
 }

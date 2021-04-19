@@ -14,7 +14,7 @@ public enum QueryUser {
     //Procedures
     PROCEDURE_GETUSER_ID("{call getUser(?)}"),
     //QUERIES
-    CREATE("INSERT INTO User (Id,User,Password,Role) VALUES (?,?,?,?); "),
+    CREATE("INSERT INTO User (ID,User,Password,Role) VALUES (?,?,?,?); "),
     GET_ID("SELECT Id,User,Password,Role FROM User WHERE Id=?; "),
     GET_USER("SELECT Id,User,Password,Role FROM User WHERE User=?; "),
     UPDATE("UPDATE User SET User=?,Password=?,Role=? WHERE Id=?; "),
